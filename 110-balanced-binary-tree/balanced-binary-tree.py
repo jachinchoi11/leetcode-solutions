@@ -13,6 +13,8 @@ class Solution:
     def dfs(self, root):
         if not root:
             return 0
+        if self.member == False:
+            return -1
         left = self.dfs(root.left)
         right = self.dfs(root.right)
         if abs(left - right) > 1:
