@@ -14,7 +14,7 @@ class Solution:
         left = self.dfs(root.left)
         right = self.dfs(root.right)
         if left == -1 or right == -1 or abs(left - right) > 1:
-            return -1
+            return -1 
         return 1 + max(left, right)
         
         
