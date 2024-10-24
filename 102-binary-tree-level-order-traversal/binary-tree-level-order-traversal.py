@@ -12,7 +12,7 @@ class Solution:
         res = []
         if root:
             queue.append(root)
-        level = 0
+
         while len(queue) > 0:
             currRes = []
             for i in range(len(queue)):
@@ -23,5 +23,4 @@ class Solution:
                     queue.append(curr.right)
                 currRes.append(curr.val)
             res.append(currRes)
-            level += 1
         return res 
