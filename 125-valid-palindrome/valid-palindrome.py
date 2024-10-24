@@ -6,11 +6,12 @@ class Solution:
             if s[l].isalnum() == False:
                 l += 1
                 continue
-            if  s[r].isalnum() == False:
+            elif  s[r].isalnum() == False:
                 r -= 1
                 continue
-            if s[l].lower() != s[r].lower():
-                return False
+            else:
+                if s[l].lower() != s[r].lower():
+                    return False
             l += 1
             r -= 1
         
