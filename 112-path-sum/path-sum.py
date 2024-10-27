@@ -15,8 +15,9 @@ class Solution:
 
     def dfs(self, root, sum):
         if not root:
-            return 0
+            return
         sum += root.val 
+
         if sum == self.targetSum and not root.left and not root.right:
             self.hasPathSum = True
 
