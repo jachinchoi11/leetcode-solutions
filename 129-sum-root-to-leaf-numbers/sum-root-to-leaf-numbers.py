@@ -7,13 +7,9 @@
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         res = []
-        self.ans = []
+        self.sum = 0
         self.dfs(root, res)
-        add = 0
-        for batch in self.ans:
-            s = "".join(map(str, batch))
-            add += int(s)
-        return add
+        return self.sum
 
     def dfs(self, root, res):
         if not root:
@@ -24,7 +20,7 @@ class Solution:
         self.dfs(root.right, res)
 
         if not root.left and not root.right:
-            self.ans.append(list(res))
+            self.sum += int("".join(map(str, res)))
         res.pop()
 
 
