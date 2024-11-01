@@ -23,19 +23,21 @@ class Solution:
 
         res = [0] * len(nums2)
         stack = []
+        count = {}
 
         for i, value in enumerate(nums2):
-            while stack and value > nums2[stack[-1]]:
+            while stack and value > stack[-1]:
                 index = stack.pop()
-                res[index] = value
-            stack.append(i)
-        ans = []
+                count[index] = value
+            stack.append(value)
+
         while stack:
             index = stack.pop()
-            res[index] = -1
-        print(res)
+            count[index] = -1
+        ans = []
+
         for num in nums1:
-            ans.append(res[nums2.index(num)])
+            ans.append(count[num])
         return ans
 
 
