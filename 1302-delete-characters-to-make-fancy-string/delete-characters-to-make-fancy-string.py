@@ -1,7 +1,7 @@
 class Solution:
     def makeFancyString(self, s: str) -> str:
         
-        res = []
+        res = ""
         count = 0
         currentChar = s[0]
 
@@ -10,13 +10,13 @@ class Solution:
                 count += 1
                 if count >= 3:
                     continue
-                res.append(char)
+                res += char
             else:
                 count = 1
                 currentChar = char
-                res.append(char)
+                res += char
         
-        return "".join(res)
+        return res
             
         
 
