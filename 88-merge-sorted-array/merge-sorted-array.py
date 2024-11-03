@@ -13,10 +13,10 @@ class Solution:
                 nums1[pointer] = nums1[l]
                 l -= 1
             pointer -= 1
-        
         while r >= 0:
             nums1[pointer] = nums2[r]
             r -= 1
             pointer -= 1
+        
 
         
