@@ -9,7 +9,6 @@ class Solution:
 
         while curr and curr.next:
             if curr.val == curr.next.val:
-                temp = curr.next 
                 curr.next = curr.next.next
             else:
                 curr = curr.next
