@@ -16,6 +16,7 @@ class Solution:
                 maxVal = max(maxVal, matrix[row][col])
             if maxVal in check:
                 res.append(maxVal)
+                break
         
         return res
         
