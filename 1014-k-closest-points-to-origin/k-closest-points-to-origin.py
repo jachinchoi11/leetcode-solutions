@@ -24,8 +24,11 @@ class Solution:
         return ans 
         
     def distanceCalc(self, x, y):
-        distance = ((x ** 2) + (y**2)) ** 0.5
+        distance = ((x ** 2) + (y**2))
         return distance
+    
 
     # O(nlogn) time 
     # O(n) space
+
+    
