@@ -7,15 +7,16 @@ class MinStack:
         if not self.minStack:
             self.minStack.append(val)
         else:
-            if val <= self.minStack[-1]:
+            if val < self.minStack[-1]:
                 self.minStack.append(val)
+            else:
+                self.minStack.append(self.minStack[-1])
 
         self.regStack.append(val)
 
     def pop(self) -> None:
-        poppedValue = self.regStack.pop()
-        if poppedValue == self.minStack[-1]:
-            self.minStack.pop()
+        self.regStack.pop()
+        self.minStack.pop()
 
     def top(self) -> int:
         return self.regStack[-1]
