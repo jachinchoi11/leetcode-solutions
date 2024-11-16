@@ -14,9 +14,7 @@ class Solution:
         # reverse the second half of the linked list 
         # and set a pointer to the second half and iterate through it 
         
-        if not head.next:
-            return head
-        
+
         dummy = ListNode()  
         res = dummy
         secondHalfPointer = head
