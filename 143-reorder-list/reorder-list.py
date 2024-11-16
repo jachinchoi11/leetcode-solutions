@@ -11,27 +11,6 @@ class Solution:
         # queue and get everything and popleft(), pop() nad connect the nodes that way 
         
         """
-        """
-        storage = deque()
-        
-        dummy = ListNode()
-        prev = dummy
-        
-        curr = head 
-        
-        while curr:
-            storage.append(curr)
-            curr = curr.next
-        
-        while len(storage) > 0:
-            dummy.next = storage.popleft()
-            dummy = dummy.next 
-            dummy.next = storage.pop()
-            dummy = dummy.next 
-        
-        return prev.next
-        """
-        
         # reverse the second half of the linked list 
         # and set a pointer to the second half and iterate through it 
         
