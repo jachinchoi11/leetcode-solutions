@@ -7,7 +7,7 @@ class Solution:
         currRooms, maxRooms = 0, 0
         startP, endP = 0,0
 
-        for start, end in sorted(intervals):
+        for start, end in intervals:
             startTime.append(start)
             endTime.append(end)
         
