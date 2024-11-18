@@ -3,13 +3,10 @@ class Solution:
         currRooms = 0
         maxRooms = 0
         maxTime = 0
+
         for _, end in intervals:
             maxTime = max(maxTime, end)
         ans = [0] * (maxTime + 1)
-
-        intervals.sort()
-        # can we use line sweep here 
-
         currRooms = 0
         index = 0
         for start, end in intervals:
