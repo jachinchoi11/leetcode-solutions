@@ -1,20 +1,27 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        currRooms = 0
-        maxRooms = 0
-        maxTime = 0
+        # sorted nlogn
 
-        for _, end in intervals:
-            maxTime = max(maxTime, end)
-        ans = [0] * (maxTime + 1)
-        currRooms = 0
-        index = 0
-        for start, end in intervals:
-            ans[start] += 1
-            ans[end] -= 1
+        startTime = [] 
+        endTime = []
+        currRooms, maxRooms = 0, 0
+        startP, endP = 0,0
+
+        for start, end in sorted(intervals):
+            startTime.append(start)
+            endTime.append(end)
         
-        for index in range(maxTime):
-            currRooms += ans[index]
-            maxRooms = max(currRooms, maxRooms)
+        startTime.sort()
+        endTime.sort()
+
+        while startP < len(startTime) and endP < len(endTime):
+
+            if startTime[startP] < endTime[endP]:
+                currRooms += 1
+                startP += 1
+            else:
+                currRooms -= 1
+                endP += 1
+            maxRooms = max(maxRooms, currRooms)
 
         return maxRooms
