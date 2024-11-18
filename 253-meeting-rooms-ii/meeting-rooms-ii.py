@@ -1,35 +1,23 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        currRooms = 0
+        maxRooms = 0
+        maxTime = 0
+        for _, end in intervals:
+            maxTime = max(maxTime, end)
+        ans = [0] * (maxTime + 1)
+
+        intervals.sort()
+        # can we use line sweep here 
+
+        currRooms = 0
+        index = 0
+        for start, end in intervals:
+            ans[start] += 1
+            ans[end] -= 1
         
-        start = []
-        end = []
-        for i in range(len(intervals)):
-            start.append(intervals[i][0])
-            end.append(intervals[i][1])
-        start = sorted(start)
-        end = sorted(end)
-
-
-        s, e = 0,0
-        currRooms, maxRooms = 0, 0
-
-
-        while s < len(start) and e < len(end):
-            if start[s] < end[e]:
-                currRooms += 1
-                s += 1
-            else:
-                # becasue when its tied we have to - first
-                e += 1
-                currRooms -= 1
-            print(maxRooms)
+        for index in range(maxTime):
+            currRooms += ans[index]
             maxRooms = max(currRooms, maxRooms)
-    
+
         return maxRooms
-
-            
-
-        
-            
-                
-         
