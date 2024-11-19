@@ -10,7 +10,6 @@ class Solution:
             if result:
                 r = middle
                 found = True
-                lastFoundValue = middle
             else:
                 l = middle + 1
             
@@ -34,6 +33,7 @@ class Solution:
             left = queries[index][0]
             right = queries[index][1]
             value = queries[index][2]
+            
             track[left] -= value
             track[right + 1] += value
             
