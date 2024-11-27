@@ -9,31 +9,19 @@ class Solution:
                 hours = int(time[0:2])
                 minutes = int(time[3:5])
                 minutesList.append((hours * 60) + minutes)
-            return sorted(minutesList, reverse = True)
+            return sorted(minutesList)
 
         currentList = parseData(timePoints, minutesList)
         rightBound = 24 * 60
         index = 0
         print(currentList)
-        while index < len(currentList) - 1:
+        while index < len(currentList):
 
             time = currentList[index]
             valueBefore = int(currentList[index - 1])
-            valueAfter = int(currentList[index + 1])
-
             leftTimeA = abs(time - valueBefore)
-            leftTimeB = abs(time - valueAfter)
-
-            rightTimeA = abs(rightBound - time + valueBefore)
-            rightTimeB = abs(rightBound - time + valueAfter)
-            print(time)
-            print(rightTimeA)
-            leftTimeMin = min(leftTimeA, rightTimeA)
-            rightTimeMin = min(leftTimeB, rightTimeB)
-
-            minCurrValue = min(leftTimeMin, rightTimeMin)
-            minRes = min(minRes, minCurrValue)
-
+            minRes = min(minRes, leftTimeA)
             index += 1
-
-        return minRes
+        
+        rightTimeA = abs(rightBound - currentList[-1] + currentList[0])
+        return min(minRes, rightTimeA)
