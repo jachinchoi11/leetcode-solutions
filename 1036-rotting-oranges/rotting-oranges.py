@@ -24,11 +24,10 @@ class Solution:
                 for dr, dc in neighbors:
                     newR = currRow + dr
                     newC = currCol + dc
-                    if min(newR, newC) < 0 or newR == rows or newC == cols or (newR, newC) in visited or grid[newR][newC] != 1:
+                    if min(newR, newC) < 0 or newR == rows or newC == cols or grid[newR][newC] != 1:
                         continue
                     grid[newR][newC] = 2
                     queue.append([newR, newC])
-                    visited.add((newR, newC))
                     count -= 1
                     if count == 0:
                         return time
