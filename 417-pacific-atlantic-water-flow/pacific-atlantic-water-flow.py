@@ -47,8 +47,6 @@ class Solution:
                     continue
                 atlanticQueue.append((newR, newC))
                 atlantic.add((newR, newC))
-        print(pacific)
-        print(atlantic)
 
         for currR, currC in pacific:
             if (currR, currC) in atlantic:
