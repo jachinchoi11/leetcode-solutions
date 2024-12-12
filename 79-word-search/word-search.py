@@ -13,15 +13,15 @@ class Solution:
                 return
             if row < 0 or col < 0 or row == rows or col == cols or (row, col) in currVisited or board[row][col] != word[index]:
                 return
-            
-            currVisited.append((row, col))
+            currVisited.add((row, col))
             dfs(row + 1, col, index + 1, currVisited)
             dfs(row - 1, col, index + 1, currVisited)
             dfs(row, col + 1, index + 1, currVisited)
             dfs(row, col - 1, index + 1, currVisited)
-            currVisited.pop()
+            currVisited.remove((row, col))
         
-        currVisited = []
+        currVisited = set()
+
         for row in range(rows):
             for col in range(cols):
                 if board[row][col] != word[0] or (row, col) in visited:
@@ -29,4 +29,6 @@ class Solution:
                 else:
                     dfs(row, col, 0, currVisited)
                     visited.add((row, col))
-        return self.found
+            if self.found:
+                return True
+        return False
