@@ -24,10 +24,7 @@ class Solution:
 
         for row in range(rows):
             for col in range(cols):
-                if board[row][col] != word[0] or (row, col) in currVisited:
-                    continue
-                else:
-                    dfs(row, col, 0, currVisited)
+                dfs(row, col, 0, currVisited)
             if self.found:
                 return True
         return False
