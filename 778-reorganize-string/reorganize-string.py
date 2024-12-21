@@ -4,7 +4,9 @@ class Solution:
         # use a greedy approach by putting in the highest one 
         # what we do is look for the next highest 
         # if we end up having to add the same thing then that is not good 
-        # we don't have to use a queue here, in all honesty because we can jsut look for the second value 
+        # we don't have to use a queue here, in all honesty because we can jsut look for the second value
+        # just pop the next value, if thats not there "" 
+        # if you use a queue, simulate the waiting time, 
         count = Counter(s)
         maxHeap = [(-cnt, char ) for char, cnt in count.items()]
         heapq.heapify(maxHeap)
@@ -28,7 +30,6 @@ class Solution:
                 count[currChar] -= 1
                 if count[currChar] > 0:
                     heapq.heappush(maxHeap, (-count[currChar], currChar))
-        
         return res
 
 
