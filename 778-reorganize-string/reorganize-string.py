@@ -3,8 +3,8 @@ class Solution:
         # i think we can ahve a count of the chars in s
         # use a greedy approach by putting in the highest one 
         # what we do is look for the next highest 
-        # if we end up with one thing left in hashamp, and the frequency is hgiher than 1, then we are screwed 
-
+        # if we end up having to add the same thing then that is not good 
+        # we don't have to use a queue here, in all honesty because we can jsut look for the second value 
         count = Counter(s)
         maxHeap = [(-cnt, char ) for char, cnt in count.items()]
         heapq.heapify(maxHeap)
@@ -12,22 +12,24 @@ class Solution:
         res = ""
         time = 0
 
-        while maxHeap or queue:
-            if queue and queue[0][2] == time:
-                currCount, currChar, _ = queue.popleft()
-                heapq.heappush(maxHeap, (currCount, currChar))
-            if maxHeap:
-                currCount, currChar = heapq.heappop(maxHeap)
-                if res and res[-1] == currChar:
+        while maxHeap:
+            currCount, currChar = heapq.heappop(maxHeap)
+            if res and res[-1] == currChar:
+                if not maxHeap:
                     return ""
+                nextCount, nextChar = heapq.heappop(maxHeap)
+                res += nextChar
+                count[nextChar] -= 1
+                if count[nextChar] > 0:
+                    heapq.heappush(maxHeap, (-(count[nextChar]), nextChar))
+                heapq.heappush(maxHeap, (currCount, currChar))
+            else:
                 res += currChar
                 count[currChar] -= 1
                 if count[currChar] > 0:
-                    queue.append([-count[currChar], currChar, time + 2])
-                else:
-                    count.pop(currChar)
-            time += 1
-        return res 
+                    heapq.heappush(maxHeap, (-count[currChar], currChar))
+        
+        return res
 
 
 
