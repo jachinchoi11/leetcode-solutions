@@ -11,7 +11,6 @@ class Solution:
         queue = deque()
 
         def bfs(queue, connections):
-            visited.add(queue[0])
             while queue:
                 curr = queue.popleft()
                 currList = connections[curr]
@@ -19,6 +18,7 @@ class Solution:
                     if value not in visited:
                         queue.append(value)
                         visited.add(value)
+                visited.add(curr)
 
         
         res = 0
