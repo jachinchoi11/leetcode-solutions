@@ -21,12 +21,13 @@ class Solution:
     def dfs(self, node, adj, path):
         if node in path:
             return False
+        if node not in adj:
+            return True
         path.add(node)
-        if node in adj:
-            for neighbor in adj[node]:
-                if not self.dfs(neighbor, adj, path):
-                    return False
-            adj[node] = []
+        for neighbor in adj[node]:
+            if not self.dfs(neighbor, adj, path):
+                return False
+        adj[node] = []
         path.remove(node)
         return True
         
