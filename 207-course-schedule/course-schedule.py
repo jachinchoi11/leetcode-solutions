@@ -7,7 +7,6 @@ class Solution:
         # if you have a cycle in this case, you will not be abel to finish all the classes 
 
         path = set()
-
         adj = defaultdict(list)
 
         for start, end in prerequisites:
@@ -27,10 +26,14 @@ class Solution:
         for neighbor in adj[node]:
             if not self.dfs(neighbor, adj, path):
                 return False
+        # the reason why you want to make this an empty list is becuse you don't want to precompute eveyrhting 
+        # and dfs all the way down to the root
+        # if you ddi't have there is a tle bc you have to go the last prequeuesit, wherea
         adj[node] = []
         path.remove(node)
         return True
-        
+
+# also putting in a nested fundction will allow  you to not pass in as it has access to the thing, just a tip
 
 
 
