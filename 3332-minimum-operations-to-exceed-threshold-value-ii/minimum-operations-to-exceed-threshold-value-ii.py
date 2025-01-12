@@ -23,8 +23,10 @@ class Solution:
                 heapq.heappush(minHeap, newNum)
             if num_less_than_k <= 0:
                 break
+        
         if minHeap and num_less_than_k > 0:
             operation_count += 1
+        
         return operation_count
 
         # 2,11,10,1,3
