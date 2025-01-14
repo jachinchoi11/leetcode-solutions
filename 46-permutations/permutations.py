@@ -9,6 +9,7 @@ class Solution:
         # essentially, if we just let it go like try out all the combinations 
 
         currList, res = [], []
+        currSet = set()
 
         def backtrack(i):
             if len(currList) == len(nums):
@@ -17,9 +18,11 @@ class Solution:
 
             print(currList)
             for index in range(i, len(nums)):
-                if nums[index] not in currList:
+                if nums[index] not in currSet:
+                    currSet.add(nums[index])
                     currList.append(nums[index])
                     backtrack(0)
+                    currSet.remove(nums[index])
                     currList.pop()
         backtrack(0)
         return res
