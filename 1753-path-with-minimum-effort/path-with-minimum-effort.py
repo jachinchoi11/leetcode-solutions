@@ -13,14 +13,15 @@ class Solution:
 
         pq = [(0, heights[0][0], 0, 0)]
         rows, cols = len(heights), len(heights[0])
-        res = float('inf')
+        res = 0
         visit = set()
 
         while pq:
             currDiff, prevValue, row, col = heapq.heappop(pq)
             directions = [[0, 1], [1, 0], [-1, 0], [0,-1]]
+            res = max(res, currDiff)
             if row == rows - 1 and col == cols - 1:
-                return currDiff
+                return res
             visit.add((row , col))
             for dr, dc in directions:
                 newR = row + dr
@@ -30,7 +31,7 @@ class Solution:
                 newDiff = max(currDiff, abs(heights[newR][newC] - prevValue))
                 heapq.heappush(pq, (newDiff, heights[newR][newC], newR, newC))
         
-        return 0
+        return res
 
 
 
