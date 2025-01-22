@@ -15,9 +15,7 @@ class Solution:
         
         for key, value in divisors.items():
             target_divisor = k - key
-            if key == 0:
-                continue
-            elif key == target_divisor:
+            if key == target_divisor or key == 0:
                 if divisors[key] % 2 != 0:
                     return False
             else:
