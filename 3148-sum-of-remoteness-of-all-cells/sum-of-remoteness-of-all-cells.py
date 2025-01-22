@@ -19,30 +19,25 @@ class Solution:
                 return False
             return True
         
-        def dfs(row, col):
-
-            if not isValid(row, col):
-                return [0, 0]
-            
+        def dfs(row, col, arr):
+        
             visited.add((row, col))
-            curr_num = 1
-            curr_sum = grid[row][col]
+            arr[0] += 1
+            arr[1] += grid[row][col]
 
             for dr, dc in [[0, 1] , [1, 0], [-1, 0], [0, -1]]:
                 newR = dr + row
                 newC = dc + col
-                addNum, addSum = dfs(newR, newC)
-                curr_sum += addSum
-                curr_num += addNum
-
-            return curr_num, curr_sum
+                if isValid(newR, newC):
+                    dfs(newR, newC, arr)
+            return arr
 
         visited = set()
 
         for row in range(rows):
             for col in range(cols):
                 if grid[row][col] != - 1 and (row, col) not in visited:
-                    amt, value = dfs(row, col)
+                    amt, value = dfs(row, col, [0, 0])
                     result += amt * (total_sum - value)
         return result
 
