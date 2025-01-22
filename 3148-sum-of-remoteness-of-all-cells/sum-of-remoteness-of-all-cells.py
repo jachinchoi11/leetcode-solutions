@@ -22,19 +22,18 @@ class Solution:
         def dfs(row, col):
 
             if not isValid(row, col):
-                return 0, 0
+                return [0, 0]
             
             visited.add((row, col))
             curr_num = 1
             curr_sum = grid[row][col]
 
-            currD, down = dfs(row + 1, col)
-            currU, up = dfs(row - 1, col)
-            currR, right = dfs(row, col + 1)
-            currL, left = dfs(row, col - 1)
-
-            curr_num += (currD + currU + currR + currL)
-            curr_sum += (up + down + left + right)
+            for dr, dc in [[0, 1] , [1, 0], [-1, 0], [0, -1]]:
+                newR = dr + row
+                newC = dc + col
+                addNum, addSum = dfs(newR, newC)
+                curr_sum += addSum
+                curr_num += addNum
 
             return curr_num, curr_sum
 
