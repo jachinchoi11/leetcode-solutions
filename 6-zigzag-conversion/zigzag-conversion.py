@@ -13,6 +13,7 @@ class Solution:
 
         if numRows == 1 or numRows >= len(s):
             return s
+        
         for char in s:
             res[pointer].append(char)
             if increasing:
@@ -25,7 +26,6 @@ class Solution:
                 increasing = True
         for each_list in res:
             convert.extend(each_list)
-        
         return "".join(convert)
             
 
