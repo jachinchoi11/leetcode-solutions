@@ -15,8 +15,8 @@ class Solution:
 
         rows, cols = len(grid), len(grid[0])
 
-        rowsHash = defaultdict(list)
-        colsHash = defaultdict(list)
+        rowsHash = defaultdict(int)
+        colsHash = defaultdict(int)
 
         res = 0
         total_num = 0
@@ -24,20 +24,15 @@ class Solution:
         for row in range(rows):
             for col in range(cols):
                 if grid[row][col] == 1:
-                    rowsHash[row].append(col)
-                    colsHash[col].append(row)
+                    rowsHash[row] += 1
+                    colsHash[col] += 1
                     total_num += 1
-        potentialAns = []
-        for key, value in rowsHash.items():
-            # here we need to find places where there is only thing in a row, and then we can deduce if there is a col for it 
-            if len(value) == 1:
-                potentialAns.append(value[0])
-        
-        for ans in potentialAns:
-            print(potentialAns)
-            if len(colsHash[ans]) == 1:
-                print(ans)
-                res += 1
+                    
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 1 and rowsHash[row] == 1 and colsHash[col] == 1:
+                    res += 1
+
         
         return total_num - res
 
