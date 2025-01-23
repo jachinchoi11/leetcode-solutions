@@ -11,7 +11,7 @@ class Solution:
         increasing = True
         index = 0
 
-        if numRows == 1 or numRows >= len(s):
+        if numRows == 1:
             return s
         
         for char in s:
