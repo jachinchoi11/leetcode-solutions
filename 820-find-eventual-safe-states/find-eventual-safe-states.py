@@ -7,11 +7,12 @@ class Solution:
         visited = set()
         
         def dfs(index, visited):
+            # the reason why is because we assume that it will be False at the beginning
             if index in safe:
                 return safe[index]
+            safe[index] = False
             if index in visited:
                 return False
-            safe[index] = False
             visited.add(index)
             for neighbors in graph[index]:
                 if not dfs(neighbors, visited):
