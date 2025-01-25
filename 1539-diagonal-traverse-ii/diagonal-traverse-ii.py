@@ -15,11 +15,13 @@ class Solution:
         for row in range(rows):
             for col in range(len(nums[row])):
                 sum_of_dimension = row + col
-                count[sum_of_dimension].append(nums[row][col])        
+                count[sum_of_dimension].append(nums[row][col])   
+             
         res = []
         currNum = 0
+
         while currNum in count:
-            res.extend(count[currNum][::-1])
+            for item in reversed(count[currNum]):
+                res.append(item)
             currNum += 1
-        
         return res
