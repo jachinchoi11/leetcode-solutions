@@ -7,18 +7,19 @@ class Solution:
 
         # and then just prioritize the one with the lowest row, so in the tuple in the heap (we can insert the sum, row, dont think you need the column)
 
+        # okay, you technically don't need to do have a minHeap for this case, as you could technically just use a hashmap
 
-        minHeap = [] # will store the tuples of the sum and the rows 
-        rows, cols = len(nums), len(nums[0])
+        count = defaultdict(list)
+        rows = len(nums)
 
         for row in range(rows):
             for col in range(len(nums[row])):
-                heapq.heappush(minHeap, ((row + col), col, row))
-        
+                sum_of_dimension = row + col
+                count[sum_of_dimension].append(nums[row][col])        
         res = []
-
-        while minHeap:
-            _, col, row = heapq.heappop(minHeap)
-            res.append(nums[row][col])
+        currNum = 0
+        while currNum in count:
+            res.extend(count[currNum][::-1])
+            currNum += 1
         
         return res
