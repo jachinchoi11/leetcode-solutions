@@ -21,9 +21,10 @@ class Solution:
         # since it recurses back, it should redo those values, and we should not have to backtrack
         if not root:
             return False
-        return self.preDfs(root, root.val, targetSum)
+        return self.preDfs(root, 0, targetSum)
         
     def preDfs(self, curr_node, curr_sum, targetSum):
+        curr_sum += curr_node.val
         if not curr_node.left and not curr_node.right:
             if curr_sum == targetSum:
                 return True
@@ -32,9 +33,9 @@ class Solution:
 
         left, right = False, False
         if curr_node.left:
-            left = self.preDfs(curr_node.left, curr_sum + curr_node.left.val, targetSum)
+            left = self.preDfs(curr_node.left, curr_sum, targetSum)
         if curr_node.right:
-            right = self.preDfs(curr_node.right, curr_sum + curr_node.right.val, targetSum)
+            right = self.preDfs(curr_node.right, curr_sum, targetSum)
 
         return left or right
 
