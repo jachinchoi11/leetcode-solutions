@@ -1,29 +1,30 @@
 class MinStack:
+    """
+    For this problem , we want to initialize where to push the values 
+    """
     def __init__(self):
-        self.minStack = []
         self.regStack = []
-
     def push(self, val: int) -> None:
-        if not self.minStack:
-            self.minStack.append(val)
+        if self.regStack:
+            minValue = min(self.regStack[-1][1], val)
+            self.regStack.append((val, minValue))
         else:
-            if val < self.minStack[-1]:
-                self.minStack.append(val)
-            else:
-                self.minStack.append(self.minStack[-1])
-
-        self.regStack.append(val)
-
+            self.regStack.append((val, val))
+    
     def pop(self) -> None:
-        self.regStack.pop()
-        self.minStack.pop()
-
+        if self.regStack:
+            self.regStack.pop()
+        else:
+            print("Nothing in the stack, so pop unsucessful")
+        
     def top(self) -> int:
-        return self.regStack[-1]
-        
+        if self.regStack:
+            return self.regStack[-1][0]
+        else:
+            return []
+
     def getMin(self) -> int:
-        return self.minStack[-1]
-        
+        return self.regStack[-1][1]
 
 
 # Your MinStack object will be instantiated and called as such:
