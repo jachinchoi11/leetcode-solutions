@@ -24,8 +24,7 @@ class Solution:
         right_length = self.dfs(curr_node.right, res)
         level = 1 + max(left_length, right_length)
 
-        res[level - 1].append(curr_node.val)
-
+        res[level].append(curr_node.val)
         return level
 
             
