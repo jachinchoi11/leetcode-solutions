@@ -1,47 +1,59 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def boundaryOfBinaryTree(self, root: TreeNode):
-        if not root:
-            return []
+    def boundaryOfBinaryTree(self, root: Optional[TreeNode]) -> List[int]:
 
-        def isLeaf(node):
-            return node.left is None and node.right is None
+        # ok so basically its root + left boundar of root (left side view)
 
-        # Collect left boundary (excluding leaves)
-        def getLeftBoundary(node):
-            boundary = []
-            while node:
-                if not isLeaf(node):
-                    boundary.append(node.val)
-                node = node.left if node.left else node.right
-            return boundary
+        # what if we have a thing for find left boundary
+        # find right boundary 
+        # then we could just pop a bfs where we disregard the first right child, 
+        # so we would essentially pass in root.left node and then give it 0 --> cause it will look fro the first index at each level for boundary 
 
-        # Collect right boundary (in reverse order, excluding leaves)
-        def getRightBoundary(node):
-            boundary = []
-            while node:
-                if not isLeaf(node):
-                    boundary.append(node.val)
-                node = node.right if node.right else node.left
-            return boundary[::-1]
+        # and then for the right boundary we will pass root.right node and then give it -1, so it can look for the last one to be added which would be right bounary 
+        # and then just appedn it to our answer in reversed order 
 
-        # Collect all leaf nodes using DFS to preserve left-to-right order
-        def getLeaves(node, leaves):
-            if not node:
+        def isLeafNode(node):
+            if not node.left and not node.right:
+                return True
+            return False
+        
+        boundary_values = [root.val]
+        rightBoundary = []
+        
+        def getLeft(curr_node):
+            if not curr_node:
                 return
-            if isLeaf(node):
-                leaves.append(node.val)
-            getLeaves(node.left, leaves)
-            getLeaves(node.right, leaves)
+            if not isLeafNode(curr_node):
+                boundary_values.append(curr_node.val)
+            getLeft(curr_node.left) if curr_node.left else getLeft(curr_node.right)
+        
+        def getRight(curr_node):
+            if not curr_node:
+                return
+            if not isLeafNode(curr_node):
+                rightBoundary.append(curr_node.val)
+            getRight(curr_node.right) if curr_node.right else getRight(curr_node.left)
 
-        # Root node
-        boundary = [root.val] if not isLeaf(root) else []
+        def getLeaves(curr_node):
+            if not curr_node:
+                return
+            if isLeafNode(curr_node) and curr_node != root:
+                boundary_values.append(curr_node.val)
+            getLeaves(curr_node.left)
+            getLeaves(curr_node.right)
+        
+        if root.left:
+            getLeft(root.left)
 
-        # Collect and append boundaries and leaves in the correct order
-        left_boundary = getLeftBoundary(root.left)
-        leaves = []
-        getLeaves(root, leaves)
-        right_boundary = getRightBoundary(root.right)
+        getLeaves(root)
+        if root.right:
+            getRight(root.right)
 
-        # Concatenate left boundary, leaves, and reversed right boundary
-        boundary += left_boundary + leaves + right_boundary
-        return boundary
+        boundary_values.extend(reversed(rightBoundary))
+
+        return boundary_values
