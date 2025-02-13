@@ -2,7 +2,6 @@ class Solution:
     def minOperations(self, nums: List[int], k: int) -> int:
         # i think we can use a heap to keep track of the top two minimum numbers 
         # and the number that we choose to do is to find how many there are 
-
         '''num_less_than_k = 0 
         minHeap = []
         operation_count = 0
