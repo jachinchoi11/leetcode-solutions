@@ -1,29 +1,44 @@
+"""
+
+Implementing this Undergrodund System, has a checkIn funciton, checkoutFinction , getAfverage time function
+
+check in - checking it a tthe function, and the one caveat that we have here is that custmer can only be checked into one place at a tiem (stationName)
+check out- checking out (userId, stationName)
+
+getAverageTime - functon that resutrns teh average time it takes to tracle from start to end station 
+    - we only look at the direct pahts from start to end station 
+
+- getAverageTime 
+customer check in hashmap, with the key being the id and the key being the stationName and startingTime
+whenever we checkout, we'll check to see if that customer checked in or not, if not, we will print an error
+    - if they did, then we should be able to compute the time it took and add 1 to the number of records 
+    - we should make a hashmap from (startStation, endStation) as the key, and the value being the time, and num of records 
+
+"""
 class UndergroundSystem:
-    # when we checkout we can compute teh average time and then remove it from the station
-    # we can have a hashmap tha ttake sthe sationName and id as teh key in a typle 
-    # and then the time fro the checkIn
-    # we can then have another hashmpa that atakes the startStation, endStation as a tuple and then the running sum and number of checkin/checkou
+
     def __init__(self):
-        self.idChecker = {}
-        self.tracker = {}
+        self.customer_check_in = {}
+        self.start_to_end = {}
+
     def checkIn(self, id: int, stationName: str, t: int) -> None:
-        self.idChecker[id] = ((stationName, t))
+        self.customer_check_in[id] = [stationName, t]
+
     def checkOut(self, id: int, stationName: str, t: int) -> None:
-        if id in self.idChecker:
-            startStation, startTime = self.idChecker[id]
-            endStation = stationName
-            if (startStation, endStation) in self.tracker:
-                self.tracker[(startStation, endStation)][0] += t - startTime
-                self.tracker[(startStation, endStation)][1] += 1
+        if id in self.customer_check_in:
+            start_station, start_time = self.customer_check_in[id]
+            travel_time = t - start_time
+            if (start_station, stationName) in self.start_to_end:
+                self.start_to_end[(start_station, stationName)][0] += travel_time
+                self.start_to_end[(start_station, stationName)][1] += 1
             else:
-                self.tracker[(startStation, endStation)] = [t-startTime, 1]
+                self.start_to_end[(start_station, stationName)] = [travel_time, 1]
+        self.customer_check_in.pop(id)
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
-        res = 0
-        if (startStation, endStation) in self.tracker:
-            totalTime, totalTrips = self.tracker[(startStation, endStation)]
-        res = totalTime/totalTrips
-        return res
+        if (startStation, endStation) in self.start_to_end:
+            total_time, num_of_records = self.start_to_end[(startStation, endStation)]
+            return total_time / num_of_records
 
 
 # Your UndergroundSystem object will be instantiated and called as such:
