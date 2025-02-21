@@ -10,19 +10,16 @@ class FindElements:
         root.val = 0
         self.hashset = set()
         queue = deque()
-        queue.append((root, 0, 2))
+        queue.append((root))
 
         while queue:
-            current_node, parent_val, l_or_r = queue.popleft()
-            if l_or_r == 0:
-                current_node.val = parent_val * 2 + 1
-            elif l_or_r == 1:
-                current_node.val = parent_val * 2 + 2
-            
+            current_node = queue.popleft()
             if current_node.left:
-                queue.append((current_node.left, current_node.val, 0))
+                current_node.left.val = current_node.val * 2 + 1
+                queue.append((current_node.left))
             if current_node.right:
-                queue.append((current_node.right, current_node.val, 1))
+                current_node.right.val = current_node.val * 2 + 2
+                queue.append((current_node.right))
             self.hashset.add(current_node.val)
     
     def find(self, target: int) -> bool:
