@@ -15,11 +15,11 @@ class Solution:
         for right in range(len(p)):
             curr_count[s[right]] += 1
         right += 1
-        if curr_count == count_p:
-            res.append(0)
+    
 
-        print(right) # tink about why you have to iterate right + 1, when you do this( has to do with logic of for loops)
         while right < len(s):
+            if curr_count == count_p:
+                res.append(left)
             right_char = s[right]
             curr_count[right_char] += 1
             left_char = s[left]
@@ -27,8 +27,8 @@ class Solution:
             curr_count[left_char] -= 1
             if curr_count[left_char] == 0:
                 curr_count.pop(left_char)
-            
-            if curr_count == count_p:
-                res.append(left)
             right += 1
+
+        if (curr_count) == count_p:
+            res.append(left)
         return res 
