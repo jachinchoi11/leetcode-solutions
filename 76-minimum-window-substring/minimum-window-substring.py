@@ -16,7 +16,7 @@ class Solution:
         left, right = 0, 0
         t_count = Counter(t)
 
-        counter = len(set(t))
+        counter = len(t_count)
 
         while right < len(s):
             right_char = s[right]
