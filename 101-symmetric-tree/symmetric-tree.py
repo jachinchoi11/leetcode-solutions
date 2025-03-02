@@ -7,7 +7,7 @@
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         
-        # bfs version 
+        """# bfs version 
 
         queue = deque([root])
 
@@ -23,9 +23,30 @@ class Solution:
                     queue.append(curr_node.right)
             if curr_level != curr_level[::-1]:
                 return False
-        return True
-                    
+        return True"""
 
+        # dfs version 
+
+        # we essentially want to check the nodes for the dfs
+
+        return self.dfs(root.left, root.right)
+        
+    
+    def dfs(self, left_side_node, right_side_node):
+
+        if not left_side_node and not right_side_node:
+            return True
+        
+        if not left_side_node or not right_side_node:
+            return False
+        
+        if left_side_node.val != right_side_node.val:
+            return False
+        
+        return self.dfs(left_side_node.left, right_side_node.right) and self.dfs(left_side_node.right, right_side_node.left)
+
+    
+            
 
 
 
