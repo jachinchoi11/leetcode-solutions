@@ -27,24 +27,25 @@ class Solution:
         for row in range(rows):
             for col in range(cols):
                 if grid[row][col] == '1' and (row, col) not in visited:
-                    self.bfs(row, col, visited, rows, cols, grid)
+                    self.dfs(row, col, visited, rows, cols, grid)
                     num_of_islands += 1
         return num_of_islands
 
-    def bfs(self, curr_row, curr_col, visited, rows, cols, grid):
-            queue = deque([(curr_row, curr_col)])
-            directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
-            visited.add((curr_row, curr_col))
-            def isValid(curr_row, curr_col):
-                if curr_row < 0 or curr_col < 0 or curr_row == rows or curr_col == cols or grid[curr_row][curr_col] == '0' or (curr_row, curr_col) in visited:
-                    return False
-                return True 
+    def dfs(self, row, col, visited, rows, cols, grid):
+        def isValid(row, col):
+            if row < 0 or col < 0 or row == rows or col == cols or grid[row][col] == '0' or (row, col) in visited:
+                return False
+            return True
+        
+        if not isValid(row, col):
+            return
+        
+        visited.add((row, col))
 
-            while queue:
-                curr_row, curr_col = queue.popleft()
-                for row_offset, col_offset in directions:
-                    new_row = curr_row + row_offset
-                    new_col = curr_col + col_offset
-                    if isValid(new_row, new_col):
-                        queue.append((new_row, new_col))
-                        visited.add((new_row, new_col))
+        self.dfs(row + 1, col, visited, rows, cols, grid)
+        self.dfs(row - 1, col, visited, rows, cols, grid)
+        self.dfs(row, col + 1, visited, rows, cols, grid)
+        self.dfs(row, col - 1, visited, rows, cols, grid)
+    
+
+
