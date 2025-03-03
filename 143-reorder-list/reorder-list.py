@@ -45,9 +45,10 @@ class Solution:
     def obtain_middle(self, head):
         middle, fast = head, head
 
-        while fast and fast.next:
+        while fast and fast.next and fast.next.next:
             middle = middle.next
             fast = fast.next.next
+        
         slow = middle
         middle = middle.next
         slow.next = None
