@@ -15,7 +15,8 @@ class Solution:
         while pointer < len(input_string) - 1:
             first_char = input_string[pointer]
             second_char = input_string[pointer + 1]
-            res.append((int(first_char) + int(second_char)) % 10)
+            number = (int(first_char) + int(second_char)) % 10
+            res.append(str(number))
             pointer += 1
         
-        return "".join(map(str, res))
+        return "".join(res)
