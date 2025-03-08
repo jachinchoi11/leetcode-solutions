@@ -14,20 +14,22 @@ class Solution:
             # three pass solutin
                 # O(n) time and O(n) space
         
-        left_product = [1] * len(nums)
-        right_product = [1] * len(nums)
-        ans = [0] * len(nums)
+
+
+        ans = [1] * len(nums)
 
         for index in range(1, len(nums)):
-            left_product[index] = left_product[index - 1] * nums[index - 1]
-        
+            ans[index] = ans[index - 1] * nums[index - 1]
+        right_running_product = 1
+
         for index in range(len(nums) - 2, -1, -1):
-            right_product[index] = right_product[index + 1] * nums[index + 1]
-        
-        for index in range(len(ans)):
-            ans[index] = left_product[index] * right_product[index]
-        
+            right_running_product *= nums[index + 1]
+            ans[index] = right_running_product * ans[index]
         return ans
+        
+
+
+
         
 
 
