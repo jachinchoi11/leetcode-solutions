@@ -1,39 +1,35 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # so since this is already reversed, lets jsut go about it like this 
-
-        # set up the adjacency list 
-        # all you have to do in this case, is to see if it is possible to finsih it 
-        # if you have a cycle in this case, you will not be abel to finish all the classes 
+        
+        # if you can finish all the courses --> essentially, as long as we don't have a cycle
+            # as in theres no we havet o have compelteed this to take that 
+        
+        # essentially, we can start at course 0, and if we ever run into anything again gg 
 
         path = set()
-        adj = defaultdict(list)
+        visited = set()
+        adj_list = defaultdict(list) # will store from pre req to class 
 
         for start, end in prerequisites:
-            adj[start].append(end)
-        
-        for node in range(numCourses):
-            if not self.dfs(node, adj, path):
+            adj_list[start].append(end)
+    
+        def dfs(curr_course):
+            if curr_course in path:
                 return False
-        return True
+            if curr_course in visited:
+                return True
+            
+            path.add(curr_course)
 
-    def dfs(self, node, adj, path):
-        if node in path:
-            return False
-        if node not in adj:
+            for next_course in adj_list[curr_course]:
+                if not dfs(next_course):
+                    return False
+            path.remove(curr_course)
+            visited.add(curr_course)
             return True
-        path.add(node)
-        for neighbor in adj[node]:
-            if not self.dfs(neighbor, adj, path):
+        
+        for course in range(numCourses):
+            if not dfs(course):
                 return False
-        # the reason why you want to make this an empty list is becuse you don't want to precompute eveyrhting 
-        # and dfs all the way down to the root
-        # if you ddi't have there is a tle bc you have to go the last prequeuesit, wherea
-        adj[node] = []
-        path.remove(node)
         return True
-
-# also putting in a nested fundction will allow  you to not pass in as it has access to the thing, just a tip
-
-
-
+        
