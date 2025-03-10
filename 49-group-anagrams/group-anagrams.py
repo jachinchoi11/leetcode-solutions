@@ -16,7 +16,7 @@ class Solution:
         sorted_to_answer = defaultdict(list)
 
         for word in strs:
-            curr_key = "".join(sorted(word)) # sort only works for lists
+            curr_key = tuple(sorted(word)) # sort only works for lists 
             sorted_to_answer[curr_key].append(word)
         
         return list(sorted_to_answer.values())
