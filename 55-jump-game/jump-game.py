@@ -1,15 +1,19 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        
-        maxJump = 0
-        
-        for index in range(len(nums) - 1):
-            if maxJump < index:
+        # we want to see if we can reach the last index
+            # so we can greedily take the farthest roiute no matter what
+            # the second we go to an index and our reach of index < curr_index: return Fase
+            # otherwise we reutn True
+
+        max_reach = 0
+
+        for index, num in enumerate(nums):
+
+            if index > max_reach:
                 return False
-            maxJump = max(index + nums[index], maxJump)
+            
+            max_reach = max(index + num, max_reach)
         
-        if maxJump >= len(nums) - 1:
-            return True
-        return False
-        
-                
+        return True
+
+
