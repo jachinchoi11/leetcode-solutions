@@ -1,21 +1,22 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        # we can take a greedy approach, where we simply just loook for greater elements 
-        # we can keep track of a prefix sum where if it is < 0, = 0
-        # however, we need to start off sum with first value 
+        
+        # i was thinking initially we could try to do a sliding window --> however, cause of negative numebrs
+        # this won't work for our sliding window mechanic
 
-        r = 0
-        maxSum = nums[0]
-        prefixSum = 0
+        # i thikn the play here is to always take the higher numbers --> be greedy about it
+            # we will have a running sum to keep track of whatever subarray we're working with
+                # onlu take positive sums --> otherwise go to 0 
         
-        while r  < len(nums):
-            prefixSum += nums[r]
-            if nums[r] > maxSum:
-                maxSum = nums[r]
-            if prefixSum < 0:
-                prefixSum = 0
+        max_sum = max(nums)
+        curr_sum = 0
+        for num in nums:
+            curr_sum += num 
+            if curr_sum < 0:
+                curr_sum = 0
             else:
-                maxSum = max(prefixSum, maxSum)
-            r += 1
-        return maxSum
-        
+                max_sum = max(max_sum, curr_sum)
+        return max_sum
+
+
+
