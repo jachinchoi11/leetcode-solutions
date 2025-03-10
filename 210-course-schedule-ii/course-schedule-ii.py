@@ -1,32 +1,38 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        prevMap = defaultdict(list)
+        
+        # so we need to find a way to get the ordering of this problem correct, however, i thought about it and there can be several orderings 
 
-        for start, end in prerequisites:
-            prevMap[start].append(end)
-        path = set()
+        # for example: we have 0 --> 1 --> 2 --> 3
+            # so techncially 1 and 2 could be swapped, as long they follow the coposite ordering
+        
+        # we coudl use the bfs (kahns approach to this)
+
+        # so we need to start with the least prereqs to the most prereqs 
+            # i think we can use kahns alogirthm here
         res = []
-        visited = set()
+        indegree = [0] * numCourses
+        adj_list = defaultdict(list)
 
-        def topological_sort(node):
-            if node in path:
-                return False
-            if node in visited:
-                return True
-            path.add(node)
+        for course, prereq in prerequisites:
+            adj_list[prereq].append(course)
+            indegree[course] += 1
 
-            for neighbors in prevMap[node]:
-                if topological_sort(neighbors) == False:
-                    return False
-            
-            visited.add(node)
-            path.remove(node)
-            res.append(node)
-            return True
+        queue = deque([course for course in range(len(indegree)) if indegree[course] == 0]) # will get our values to where if the course has no prereqs that will be first 
+
+
+        while queue:
+            curr_course = queue.popleft()
+            res.append(curr_course)
+
+            for next_course in adj_list[curr_course]:
+                indegree[next_course] -= 1
+                if indegree[next_course] == 0:
+                    queue.append(next_course)
         
-        for node in range(numCourses):
-            if not topological_sort(node):
-                return []
-        return res
-        
+        return res if len(res) == numCourses else []
+
+
+
+
         
