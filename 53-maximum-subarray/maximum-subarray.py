@@ -8,14 +8,11 @@ class Solution:
             # we will have a running sum to keep track of whatever subarray we're working with
                 # onlu take positive sums --> otherwise go to 0 
         
-        max_sum = max(nums)
+        max_sum = nums[0]
         curr_sum = 0
         for num in nums:
-            curr_sum += num 
-            if curr_sum < 0:
-                curr_sum = 0
-            else:
-                max_sum = max(max_sum, curr_sum)
+            curr_sum = max(curr_sum + num, num)
+            max_sum = max(max_sum, curr_sum)
         return max_sum
 
 
