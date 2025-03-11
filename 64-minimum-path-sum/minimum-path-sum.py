@@ -22,15 +22,15 @@ class Solution:
 
             if curr_row == len(grid) - 1 and curr_col == len(grid[0]) - 1:
                 return curr_sum
-
+            
             for dr, dc in displacement:
                 new_row = dr + curr_row
                 new_col = dc + curr_col
                 if new_row < 0 or new_col < 0 or new_row == len(grid) or new_col == len(grid[0]):
                     continue
-                
-                if (new_row, new_col) not in shortest_dist or curr_sum + grid[new_row][new_col] < shortest_dist[(new_row, new_col)]:
+            
+                if (new_row, new_col) not in shortest_dist:
                     heapq.heappush(pq, (curr_sum + grid[new_row][new_col], new_row, new_col))
                     shortest_dist[(new_row, new_col)] = curr_sum + grid[new_row][new_col]
-
+        
         return -1
