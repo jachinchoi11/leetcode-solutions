@@ -1,38 +1,36 @@
+# we ahbea a randomized set, and we have to put in a random thing
+    # you can not index through a set 
+    # so we need to have some type of array 
+
 class RandomizedSet:
-    import random
+
     def __init__(self):
-        self.arr = []
-        self.hashmap = {}
-        self.index = 0
+
+        self.numbers = []
+        self.number_to_index = {}
+        self.curr_index = 0
 
     def insert(self, val: int) -> bool:
-        if val in self.hashmap:
-            return False
-        else:
-            self.hashmap[val] = self.index
-            self.arr.append(val)
-            self.index += 1
+        if val not in self.number_to_index:
+            self.numbers.append(val)
+            self.number_to_index[val] = self.curr_index
+            self.curr_index += 1
             return True
+        return False
 
     def remove(self, val: int) -> bool:
-
-        if val in self.hashmap:
-            removeIndex = self.hashmap[val] 
-            # remove takes first occurnece, pop takes index 
-            self.hashmap[self.arr[-1]] = removeIndex
-            self.arr[removeIndex] = self.arr[-1]
-            self.arr.pop()
-
-            
-
-            self.hashmap.pop(val)
-            self.index -= 1
+        if val in self.number_to_index:
+            remove_index = self.number_to_index[val]
+            self.numbers[remove_index] = self.numbers[-1]
+            self.number_to_index[self.numbers[remove_index]] = remove_index
+            self.number_to_index.pop(val)
+            self.numbers.pop()
+            self.curr_index -= 1
             return True
         return False
 
     def getRandom(self) -> int:
-        randomNum = random.choice(self.arr)
-        return randomNum
+        return random.choice(self.numbers)
 
 
 # Your RandomizedSet object will be instantiated and called as such:
