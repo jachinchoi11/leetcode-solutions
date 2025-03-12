@@ -34,7 +34,6 @@ class Solution:
 
             if char.isdigit():
                 current_num = current_num * 10 + int(char)
-
             else:
                 # only when it is a number, will it come here, otherwise we will just be able to change the operator
                 if operator == '-':
@@ -50,9 +49,6 @@ class Solution:
 
                 operator = char
                 current_num = 0
-            
-
-
         return sum(stack)
         
         
