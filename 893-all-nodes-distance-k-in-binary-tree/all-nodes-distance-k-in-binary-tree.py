@@ -7,50 +7,54 @@
 
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
-        # create a graph for the problem and make sure to get the parent pointer 
-        # we want to have a visited set, as we don't want to add things that we've already observed 
-        # our answer will be the answers left in the queue
-        # we put the target node in the queue at first and do the bfs iterate k -= 1
-        # while queue and the k > 0
+        
+    # so first thing we need to do is to be able to find the target node 
+        # and find how far away soemthing this 
 
-        graph = defaultdict(list)
-        self.create_Graph(root, None, graph)
-        return self.find_k_Distance_Away(graph, target.val, k)
+    # we can create an adjacency list that allows undirected travle throughout the tree 
+        # so basically it can refer back to the parent pointers, and that way everything will be connected 
+    
+    # traversing through the adjcencey list from our target --> and going k times 
+        adj_list = defaultdict(list)
+        self.create_adj_list(root, None, adj_list)
+        visited = set()
 
-    def create_Graph(self, node, parent, graph):
-        # maps the node.values to the nodes
+        
+        queue = deque([target.val])
+        visited.add(target.val)
+
+        while queue and k > 0:
+            for _ in range(len(queue)):
+                curr_node = queue.popleft()
+                for neighbor in adj_list[curr_node]:
+                    if neighbor not in visited:
+                        queue.append(neighbor)
+                        visited.add(neighbor)
+            k -= 1
+        return list(queue)
+        
+    
+        
+
+
+
+    
+    def create_adj_list(self, node, parent, adj_list):
+        # we are creating the adjacency list
         if not node:
             return
         
         if parent:
-            graph[node.val].append(parent.val)
-        if node.right:
-            graph[node.val].append(node.right.val)
-        if node.left:
-            graph[node.val].append(node.left.val)
+            adj_list[node.val].append(parent.val)
+            adj_list[parent.val].append(node.val)
         
-        self.create_Graph(node.right, node, graph)
-        self.create_Graph(node.left, node, graph)
-    
-    def find_k_Distance_Away(self, graph, target, k):
+        self.create_adj_list(node.left, node, adj_list)
+        self.create_adj_list(node.right, node, adj_list)
 
-        queue = deque()
-        queue.append(target)
-        visited = set()
-
-        print(queue)
-        while queue and k > 0:
-            for _ in range(len(queue)):
-                curr_node_val = queue.popleft()
-                for neighbor in graph[curr_node_val]:
-                    if neighbor not in visited:
-                        queue.append(neighbor)
-                        visited.add(neighbor)
-                visited.add(curr_node_val)
-            k -= 1
-
-        return list(queue)
 
 
     
+
         
+
+
